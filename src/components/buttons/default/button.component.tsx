@@ -4,11 +4,11 @@ const Button = styled.a<any>`
   
   display: inline-block;
   border-radius: ${props => props.theme.border.radius['5']};
-  padding: 19px;
-  margin: 0.5rem 1rem;  
+  padding: 13px;
+  // margin: 0.5rem 1rem;  
   text-align: center;
   cursor: pointer;
-  width: 321px;  
+  width: calc(100% - 16px);
   color: ${props => props.theme.pallete.typography.primary};
   opacity: 1;
   background: ${props => props.theme.pallete.core.baseBackground};

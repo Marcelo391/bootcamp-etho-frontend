@@ -4,6 +4,7 @@ const core = {
     primaryHover: '#c9211b',
     secondaryHover: '#2A2A2A',
     baseBackground: 'transparent',
+    whiteBackground: 'white',
 }
 
 const typography = {
