@@ -2,14 +2,14 @@ import { createSlice } from "@reduxjs/toolkit";
 import { UserState } from "./user.types";
 import reducers from "./user.reducers";
 
-const inicialState = {
+const initialState: UserState = {
     data: null
 }
 
 
 const userSlice = createSlice( {
     name: 'user',
-    inicialState,
+    initialState,
     reducers,
 })
 

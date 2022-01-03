@@ -4,6 +4,8 @@ import InputText from '../../../components/inputs/input.text/input-text.componen
 import * as yup from 'yup';
 import { ErrorMessage } from "./forms.types";
 import { ErrorDescription } from "./form.styled";
+import { useDispatch } from "react-redux";
+import { userActions } from "../../../store/user/user.slice";
 
 const errorInicial = '';
 
@@ -15,6 +17,8 @@ export default function Form(){
     //      ...prevState,
     //      [event.target.name]:event.target.value,
     //  }));
+
+    const dispatch = useDispatch();
 
     const resetError = useCallback(
         () => setError(errorInicial),
@@ -52,12 +56,14 @@ export default function Form(){
          [data, setError]
      )
 
-     const onSubmit = useCallback(
+     const onSubmit = useCallback(         
          async () => {
-             await validation();
+             if( await validation() ){
+                 dispatch( userActions.login(data) );                 
+             }
             //console.log(data);
          },
-         [data]
+         [validation, data]
      )
 
      

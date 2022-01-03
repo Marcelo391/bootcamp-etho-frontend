@@ -1,8 +1,8 @@
 import React from 'react';
- import logo from './logo.svg';
+//  import logo from './logo.svg';
 import Login from './screens/login/login.screen';
 import { Routes , Route } from 'react-router-dom';
- import './App.css';
+import './App.css';
 import { LoginPath } from './screens/login/login.types';
 import { ThemeProvider } from 'styled-components';
 import theme from './themes/main/theme';
