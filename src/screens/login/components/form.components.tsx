@@ -1,11 +1,14 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Button from '../../../components/buttons/default/button.component';
 import InputText from '../../../components/inputs/input.text/input-text.component';
 import * as yup from 'yup';
 import { ErrorMessage } from "./forms.types";
 import { ErrorDescription } from "./form.styled";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { userActions } from "../../../store/user/user.slice";
+import { useLocation, useNavigate } from "react-router-dom";
+import { isAuthenticated } from "../../../store/user/user.selector";
+import { HomePath } from "../../home/home.types";
 
 const errorInicial = '';
 
@@ -19,6 +22,20 @@ export default function Form(){
     //  }));
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const location = useLocation();
+    const isUserAuthenticated = useSelector(isAuthenticated);
+
+    useEffect(
+        () => {
+            if(isUserAuthenticated){
+                const to = location.state?.from?.pathname || HomePath
+                navigate(to)
+            }            
+            
+        },
+        [isUserAuthenticated]
+    )
 
     const resetError = useCallback(
         () => setError(errorInicial),
