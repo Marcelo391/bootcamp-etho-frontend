@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import Button from '../../../components/buttons/default/button.component';
 import InputText from '../../../components/inputs/input.text/input-text.component';
 import * as yup from 'yup';
@@ -7,7 +7,7 @@ import { ErrorDescription } from "./form.styled";
 import { useDispatch, useSelector } from "react-redux";
 import { userActions } from "../../../store/user/user.slice";
 import { useLocation, useNavigate } from "react-router-dom";
-import { isAuthenticated } from "../../../store/user/user.selector";
+import { isAuthenticated, isLoading } from "../../../store/user/user.selector";
 import { HomePath } from "../../home/home.types";
 
 const errorInicial = '';
@@ -25,6 +25,7 @@ export default function Form(){
     const navigate = useNavigate();
     const location = useLocation();
     const isUserAuthenticated = useSelector(isAuthenticated);
+    const isUserLoading = useSelector(isLoading);
 
     useEffect(
         () => {
@@ -35,6 +36,11 @@ export default function Form(){
             
         },
         [isUserAuthenticated]
+    )
+
+    const buttonDescription = useMemo(
+        () => isUserLoading ? 'Carregando': 'Entrar',
+        [isUserLoading]
     )
 
     const resetError = useCallback(
@@ -61,7 +67,7 @@ export default function Form(){
                  await schema.validate(data);
 
                  resetError();
-                 console.log(true);
+                 //console.log(true);
                  return true;
              }
              catch(error){            
@@ -90,7 +96,7 @@ export default function Form(){
             <InputText type={'text'} placeholder={'E-mail'} name={'email'} onChange={handleChange} />            
             <InputText type={'password'} placeholder={'Senha'} name={'password'} onChange={handleChange}  />
             <ErrorDescription>{error}</ErrorDescription>
-            <Button primary onClick={onSubmit} >Entrar</Button>          
+            <Button primary onClick={onSubmit} >{buttonDescription}</Button>          
         </>
     );
 }

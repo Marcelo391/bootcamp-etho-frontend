@@ -3,7 +3,11 @@ import { UserState } from "./user.types";
 import reducers from "./user.reducers";
 
 const initialState: UserState = {
-    data: null
+    data: null,
+    error: '',
+    settings: {
+        isLoading: false
+    }
 }
 
 
